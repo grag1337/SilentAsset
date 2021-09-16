@@ -71,10 +71,17 @@ def scanURL(homeDir,domain,line,reqFile,reqDir,doDir):
         url = f"https://{line}"
         headers = requests.utils.default_headers()
         headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
-        reqOut = requests.get(url.replace("\n",""), headers=headers,timeout=1)
+        reqOut = requests.get(url.replace("\n",""), headers=headers)
         sCode = str(reqOut).replace("<Response [","").replace("]>","")
-        pTitle = fromstring(reqOut.content)
-        pTitle = pTitle.findtext('.//title')
+        try:
+            pTitle = fromstring(reqOut.content)
+        except:
+            pTitle = ""
+            None
+        if pTitle == "":
+            None
+        else:
+            pTitle = pTitle.findtext('.//title')
         fData = f"{sCode} ! {str(pTitle)}"
         line2 = line.replace('\n',"")
         jsonStr = {"url" : line2, "sCode" : sCode, "header" : pTitle}

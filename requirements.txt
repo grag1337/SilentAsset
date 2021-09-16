@@ -3,4 +3,5 @@ py-altdns==1.0.2
 pyppeteer
 requests
 webscreenshot
-json
+selenium
+

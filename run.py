@@ -60,9 +60,10 @@ try:
         if getStarted == "help" or getStarted == "Help" or getStarted == "h" or getStarted == "H":
             print(f"{Fore.YELLOW}\n ♦ Thank you for using Silent Asset! ♦\n\n ♦ These are the current commands: ♦\n ♦ help - show help ♦\n ♦ about - learn about the program and its functionality ♦\n ♦ quit - quit the program ♦\n ♦ scan - initiate scan ♦\n ♦ Press ANY KEY to continue ♦\n {Fore.RESET}")
             input()
+            clear()
             inputloop(f"✓ {getStarted}")
         elif getStarted == "quit" or getStarted == "Quit" or getStarted == "Exit" or getStarted == "exit":
-            quit()
+            exit()
         elif getStarted.__contains__("scan") or getStarted.__contains__("Scan"):
             initializeScan()
             initializeReq(runScan.domain)
@@ -76,6 +77,7 @@ try:
             clear()
             inputloop(f"✓ {getStarted}")
         else:
+            clear()
             inputloop(f"✕ {getStarted}")
 
     inputloop("")
