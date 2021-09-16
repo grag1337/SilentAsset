@@ -71,7 +71,7 @@ pip3 install -r requirements.txt
 
 ```sh
 chmod +x run.py
-./scanner.py
+./run.py
 ```
 
 ## Usage
