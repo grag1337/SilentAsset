@@ -1,0 +1,5 @@
+colorama==0.4.4
+py-altdns==1.0.2
+pyppeteer
+requests
+webscreenshot
