@@ -4,35 +4,35 @@ import threading
 #import json
 import socket
 import lib.runScan as runScan
+from time import sleep
 from colorama import Fore,Back,Style
 from os import system, name
 from requests.exceptions import ConnectionError, ReadTimeout
 from lxml.html import fromstring
 
 
+
 banner = """
-██████  ██▓ ██▓    ▓█████  ███▄    █ ▄▄▄█████▓ | v1.0 
+  ██████  ██▓ ██▓    ▓█████  ███▄    █ ▄▄▄█████▓ | Alpha v1.5
 ▒██    ▒ ▓██▒▓██▒    ▓█   ▀  ██ ▀█   █ ▓  ██▒ ▓▒
 ░ ▓██▄   ▒██▒▒██░    ▒███   ▓██  ▀█ ██▒▒ ▓██░ ▒░
-▒   ██▒░██░▒██░    ▒▓█  ▄ ▓██▒  ▐▌██▒░ ▓██▓ ░ 
+  ▒   ██▒░██░▒██░    ▒▓█  ▄ ▓██▒  ▐▌██▒░ ▓██▓ ░ 
 ▒██████▒▒░██░░██████▒░▒████▒▒██░   ▓██░  ▒██▒ ░ 
 ▒ ▒▓▒ ▒ ░░▓  ░ ▒░▓  ░░░ ▒░ ░░ ▒░   ▒ ▒   ▒ ░░   
 ░ ░▒  ░ ░ ▒ ░░ ░ ▒  ░ ░ ░  ░░ ░░   ░ ▒░    ░    
 ░  ░  ░   ▒ ░  ░ ░      ░      ░   ░ ░   ░      
-    ░   ░      ░  ░   ░  ░         ░          
+      ░   ░      ░  ░   ░  ░         ░          
                                                 
-▄▄▄        ██████   ██████ ▓█████▄▄▄█████▓ | github.com/grag1337    
+ ▄▄▄        ██████   ██████ ▓█████▄▄▄█████▓ | github.com/grag1337    
 ▒████▄    ▒██    ▒ ▒██    ▒ ▓█   ▀▓  ██▒ ▓▒     
 ▒██  ▀█▄  ░ ▓██▄   ░ ▓██▄   ▒███  ▒ ▓██░ ▒░     
 ░██▄▄▄▄██   ▒   ██▒  ▒   ██▒▒▓█  ▄░ ▓██▓ ░      
-▓█   ▓██▒▒██████▒▒▒██████▒▒░▒████▒ ▒██▒ ░      
-▒▒   ▓▒█░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░░░ ▒░ ░ ▒ ░░        
-▒   ▒▒ ░░ ░▒  ░ ░░ ░▒  ░ ░ ░ ░  ░   ░         
-░   ▒   ░  ░  ░  ░  ░  ░     ░    ░           
-    ░  ░      ░        ░     ░  ░             
+ ▓█   ▓██▒▒██████▒▒▒██████▒▒░▒████▒ ▒██▒ ░      
+ ▒▒   ▓▒█░▒ ▒▓▒ ▒ ░▒ ▒▓▒ ▒ ░░░ ▒░ ░ ▒ ░░        
+  ▒   ▒▒ ░░ ░▒  ░ ░░ ░▒  ░ ░ ░ ░  ░   ░         
+  ░   ▒   ░  ░  ░  ░  ░  ░     ░    ░           
+      ░  ░      ░        ░     ░  ░             
 """
-
-
 
 
 def clear():
@@ -46,6 +46,10 @@ def initializeReq(domain,tOut):
     global doDir
     global homeDir
     global domain2
+    global reqFile
+    urlList = []
+    sCodeList = []
+    pTitleList = []
     domain2 = domain
     clear()
     print(f"{Fore.LIGHTRED_EX}{banner}{Fore.RESET}")
@@ -68,26 +72,47 @@ def initializeReq(domain,tOut):
     except FileExistsError:
         None
     threads = []
-    jsonLoc = open(reqFile, "a")
-    jsonLoc.write('{ "sites": \n')
-    jsonLoc.close()
     for line in suDo:
         #scanURL(homeDir,domain,line,reqFile,reqDir,doDir)
-        t = threading.Thread(target=scanURL,args=(homeDir,domain,line,reqFile,reqDir,doDir,tOut)) 
+        t = threading.Thread(target=scanURL,args=(homeDir,domain,line,reqFile,reqDir,doDir,tOut,urlList,sCodeList,pTitleList)) 
         threads.append(t)
     for x in threads:        
         x.start()
     for x in threads:
         x.join()
+    airgap1 = " "
+    airgap2 = "     "
     jsonLoc = open(reqFile, "a")
-    jsonLoc.write("\n}")
-    jsonLoc.close()
-    
-    
-def scanURL(homeDir,domain,line,reqFile,reqDir,doDir,tOut):
+    jsonLoc.write(f'{{\n{airgap1}"urls": \n{airgap1}{{\n')
+    jsonLoc.write(f'\n{airgap2}"{urlList[0]}":"{sCodeList[0]}"')
+    for i in urlList[1:]:
+        try:
+            sCodeLoc = urlList.index(i)
+            jsonLoc.write(f',\n{airgap2}"{i}":"{sCodeList[sCodeLoc]}"')
+        except IndexError:
+            None
+    jsonLoc.write(f'{airgap1}}},\n')
+    jsonLoc.write(f'{airgap1}"headers": \n{airgap1}{{\n')
+    pTitleForm = pTitleList[0]
+    pTitleForm = pTitleForm.strip().replace("\n","")
+    jsonLoc.write(f'\n{airgap2}"{urlList[0]}":"{pTitleForm}"')
+    for i in urlList[1:]:
+        try:
+            pTitleLoc = urlList.index(i)
+            try:
+                pTitleForm = pTitleList[pTitleLoc]
+                pTitleForm = pTitleForm.strip().replace("\n","")
+            except AttributeError:
+                pTitleForm = ""
+                None
+            jsonLoc.write(f',\n{airgap2}"{i}":"{pTitleForm}"')
+        except IndexError:
+            None
+    jsonLoc.write(f"\n{airgap2}}}\n{airgap1}}}")
+
+
+def scanURL(homeDir,domain,line,reqFile,reqDir,doDir,tOut,urlList,sCodeList,pTitleList):
     try:
-        airgap1 = "  "
-        airgap2 = "     "
         url = f"https://{line}"
         headers = requests.utils.default_headers()
         headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
@@ -104,28 +129,22 @@ def scanURL(homeDir,domain,line,reqFile,reqDir,doDir,tOut):
             pTitle = pTitle.findtext('.//title')
         fData = f"{sCode} ! {str(pTitle)}"
         line2 = line.replace('\n',"")
-        jsonStr = f'{airgap1}{{\n{airgap2}"url" : "{line2}", \n{airgap2}"sCode" : "{sCode}", \n{airgap2}"header" : "{pTitle}"\n{airgap1}}},\n'
-        jsonLoc = open(reqFile, "a")
-        jsonLoc.write(str(jsonStr))
-        jsonLoc.close()
+        urlList.append(line2)
+        sCodeList.append(sCode)
+        pTitleList.append(pTitle)
     except TimeoutError:
         line2 = line.replace('\n',"")
-        jsonStr = f'{airgap1}{{\n{airgap2}"url" : "{line2}", \n{airgap2}"sCode" : "No Response"\n{airgap1}}},\n'
-        jsonLoc = open(reqFile, "a")
-        jsonLoc.write(str(jsonStr))
-        jsonLoc.close()
+        urlList.append(line2)
+        sCodeList.append(sCode)
     except ReadTimeout:
-        line2 = line.replace('\n',"")
-        jsonStr = f'{airgap1}{{\n{airgap2}"url" : "{line2}", \n{airgap2}"sCode" : "No Response"\n{airgap1}}},\n'
-        jsonLoc = open(reqFile, "a")
-        jsonLoc.write(str(jsonStr))
-        jsonLoc.close()
+        try:
+            line2 = line.replace('\n',"")
+            urlList.append(line2)
+            sCodeList.append(sCode)
+        except UnboundLocalError:
+            None
     except ConnectionError as e:
         line2 = line.replace('\n',"")
-        jsonStr = f'{airgap1}{{\n{airgap2}"url" : "{line2}", \n{airgap2}"sCode" : "No Response"\n{airgap1}}},\n'
-        jsonLoc = open(reqFile, "a")
-        jsonLoc.write(str(jsonStr))
-        jsonLoc.close()
     reqLoc = open(f"{reqDir}{line2}.txt","w")
     try:
         reqLoc.write(fData)
