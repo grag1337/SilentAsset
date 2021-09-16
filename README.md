@@ -20,7 +20,7 @@
 
 ## DISCLAIMER ##
 
-This project is in its early days, everything you see here is almost a POC. I will constantly be changing this project and adding / removing featues. As said below, suggestions are greatly appreciated and assist me in prioritising feature addition. 
+This project is in its early days, everything you see here is almost a POC. I will constantly be changing this project and adding / removing features. As said below, suggestions are greatly appreciated and assist me in prioritising feature addition. 
 
 ## About The Project
 
