@@ -37,6 +37,7 @@ try:
             system('clear')
 
     def initializeScan():
+        global tSubDom
         global dScan
         global domain
         clear()

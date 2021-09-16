@@ -5,9 +5,10 @@ from os import system, name
 from lib.firstStart import * 
 from lib.runScan import *
 from lib.getResponse import *
-import lib.runScan as runScan
-import lib.firstStart as firstStart
 from colorama import Fore,Back,Style
+import lib.runScan as runScan
+import lib.firstStart as firstStart 
+import lib.getResponse as getResponse
 
 #Clear Function; in literally all of my python programs. Stay clean kids.
 def clear():
@@ -67,6 +68,7 @@ try:
         elif getStarted.__contains__("scan") or getStarted.__contains__("Scan"):
             initializeScan()
             initializeReq(runScan.domain)
+            beforeReport(getResponse.reqDir,getResponse.homeDir,runScan.domain,getResponse.doDir)
             clear()
             inputloop(f"✓ {getStarted}")
         elif getStarted == "about" or getStarted == "About":
