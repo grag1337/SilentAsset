@@ -1,6 +1,7 @@
 <p align="center">
    <img src="https://i.ibb.co/dJdVc5M/Screenshot-2021-09-16-11-41-08.png" width="412.6" height="476"></img>
 </p>
+   <p align="center"><b>Please star this project!</b></p>
   <p align="center">
     Written in Python
     <br/>
