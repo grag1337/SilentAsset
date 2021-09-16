@@ -32,9 +32,9 @@ def checkFor():
     global choiceVar 
     choiceVar = 0
     if os.path.isdir(os.getcwd()+"/githubRepos") == False:
-        print(f"{Fore.RED}{banner}{Fore.RESET}")
-        print(f"{Fore.RED}\n♦ Thanks for using Silent Asset for the first time! ♦\n ♦ We're going to have to do some setup before you begin ♦\n ♦ Would you like to do this now? ♦\n{Fore.RESET}")
-        choice = input(f"{Fore.RED} (Y/n) ►{Fore.CYAN} ")
+        print(f"{Fore.LIGHTRED_EX}{banner}{Fore.RESET}")
+        print(f"{Fore.LIGHTRED_EX}\n♦ Thanks for using Silent Asset for the first time! ♦\n ♦ We're going to have to do some setup before you begin ♦\n ♦ Would you like to do this now? ♦\n{Fore.RESET}")
+        choice = input(f"{Fore.LIGHTRED_EX} (Y/n) ►{Fore.CYAN} ")
         if choice == "n" or choice == "N" or choice == "No" or choice == "no" :
             choiceVar += 1
         else:
@@ -52,4 +52,4 @@ def setup():
         os.chdir(homeDir)
     except KeyboardInterrupt:
         system("rm -r githubRepos")
-        print(f"{Fore.RED}{Style.BRIGHT} ★ Ctrl+C Detected - Aborting Setup ★{Style.NORMAL}{Fore.RESET}")
+        print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT} ★ Ctrl+C Detected - Aborting Setup ★{Style.NORMAL}{Fore.RESET}")

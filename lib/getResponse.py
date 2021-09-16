@@ -48,9 +48,9 @@ def initializeReq(domain,tOut):
     global domain2
     domain2 = domain
     clear()
-    print(f"{Fore.RED}{banner}{Fore.RESET}")
-    print(f"{Fore.RED}{Style.BRIGHT}\n♦ Checking for responses ♦\n{Fore.RESET}{Style.NORMAL}")
-    print(f"{Fore.RED}{Style.BRIGHT}\n♦ Don't worry if it seems frozen. Requests have a 10 second timeout. ♦\n{Fore.RESET}{Style.NORMAL}")
+    print(f"{Fore.LIGHTRED_EX}{banner}{Fore.RESET}")
+    print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Checking for responses ♦\n{Fore.RESET}{Style.NORMAL}")
+    print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Don't worry if it seems frozen. Requests have a 10 second timeout. ♦\n{Fore.RESET}{Style.NORMAL}")
     if runScan.dScan == "y" or runScan.dScan == "Y" or runScan.dScan == "yes" or runScan.dScan == "Yes":
         subFile = f"{domain}_full.txt"
     else:
@@ -150,7 +150,7 @@ Screenshot Function (:
         global scHots
         scHots = 0
         for line in oSubFile:
-            print(f"{Fore.RED} ★ [{scHots}\{totSubs}] Hosts Scanned{Fore.RESET}")
+            print(f"{Fore.LIGHTRED_EX} ★ [{scHots}\{totSubs}] Hosts Scanned{Fore.RESET}")
             asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain))
             scHots += 1
             
