@@ -2,7 +2,7 @@ import os
 import asyncio
 import requests
 import threading
-from multiprocessing import Process
+from multiprocessing import Process, Value
 from pyppeteer import launch
 from selenium import webdriver
 from os import system,name
@@ -47,11 +47,11 @@ try:
         print(f"{Fore.LIGHTRED_EX}{banner}{Fore.RESET}")
         print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ The time has come to scan! ♦\n{Fore.RESET}{Style.NORMAL}")
         print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ This process is currently completely automated ♦\n♦ Feel free to suggest changes that warrant more user input. ♦\n{Fore.RESET}{Style.NORMAL}")
+        print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Type {Back.RED}{Fore.WHITE}back{Back.RESET}{Fore.LIGHTRED_EX} to return ♦\n{Fore.RESET}{Style.NORMAL}\n")
         domain = input(f"\n{Fore.LIGHTRED_EX}Domain (e.g ► tesla.com) ►{Fore.CYAN} ")
         if domain == "back" or domain == "Back":
             backVar += 1
             return
-        print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Type {Back.RED}{Fore.WHITE}back{Back.RESET}{Fore.LIGHTRED_EX} to return ♦\n{Fore.RESET}{Style.NORMAL}")
         print(f"{Fore.LIGHTRED_EX}✓ Chosen Domain →{Style.BRIGHT} {domain} {Style.NORMAL}{Fore.RESET}")
         threads = input(f"\n{Fore.LIGHTRED_EX}Threads - Default 20 (e.g ► 20) ►{Fore.CYAN} ")
         if threads == "":
@@ -64,7 +64,7 @@ try:
             None
         print(f"{Fore.LIGHTRED_EX}✓ Chosen Thread Count →{Style.BRIGHT} {threads} {Style.NORMAL}{Fore.RESET}")
         dScan = input(f"\n{Fore.LIGHTRED_EX}Deep Scan? - Default n (y/n) (e.g ► y) ►{Fore.CYAN} ")
-        if dScan == "":
+        if dScan == "" or dScan != "y" or dScan != "Y" or dScan != "yes" or dScan != "Yes":
             dScan = "n"
         elif dScan == "back" or dScan == "Back":
             backVar += 1
@@ -72,14 +72,22 @@ try:
         else:
             None    
         print(f"{Fore.LIGHTRED_EX}✓ Deep Scan →{Style.BRIGHT} {dScan} {Style.NORMAL}{Fore.RESET}")
-        tOut = input(f"\n{Fore.LIGHTRED_EX}Request Timeout - Default 10 (e.g ► 5) ►{Fore.CYAN} ")
-        if tOut != int or tOut == "":
-            tOut = 10
-        elif tOut == "back" or tOut == "Back":
+        try:
+            tOut = int(input(f"\n{Fore.LIGHTRED_EX}Request Timeout - Default 10 (e.g ► 5) ►{Fore.CYAN} "))
+            if tOut == "":
+                tOut = 10
+            elif tOut == "back" or tOut == "Back":
+                backVar += 1
+                return
+            else:
+                None    
+        except ValueError:
+            print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ ERROR: Must be an integer ♦\n{Fore.RESET}{Style.NORMAL}")
+            print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Press ENTER to return back to menu... ♦\n{Fore.RESET}{Style.NORMAL}")
             backVar += 1
+            input()
             return
-        else:
-            None    
+
         print(f"{Fore.LIGHTRED_EX}✓ Timeout Chosen →{Style.BRIGHT} {tOut} {Style.NORMAL}{Fore.RESET}")
         print(f"\n\n{Fore.LIGHTRED_EX}{Style.BRIGHT}Press ENTER to begin.{Style.NORMAL}{Fore.RESET}")
         input()

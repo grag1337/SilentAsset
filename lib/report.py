@@ -36,8 +36,6 @@ def beforeReport(reqDir,homeDir,domain,doDir):
         subFile = f"{domain}2.txt"
     oSubFile = open(f"{doDir}{subFile}","r")
     repDir = f"{doDir}requests"
-    print(f"Repdir is {repDir}")
-    print(f"Contains {os.listdir(repDir)}")
     for line in os.listdir(repDir):
         file = open(f"{doDir}requests/{line}")
         contents = file.read()
@@ -78,3 +76,6 @@ def beforeReport(reqDir,homeDir,domain,doDir):
     templateLoc = open(f"{doDir}/report.html","w")
     templateLoc.write(template)
     templateLoc.close()
+    print(f"{Fore.LIGHTRED_EX}♦ Report saved to {doDir}report.html ♦{Fore.RESET}")
+    print(f"{Fore.LIGHTRED_EX}♦ Press ENTER to continue... ♦{Fore.RESET}")
+    input()

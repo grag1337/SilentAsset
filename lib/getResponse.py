@@ -50,7 +50,7 @@ def initializeReq(domain,tOut):
     clear()
     print(f"{Fore.LIGHTRED_EX}{banner}{Fore.RESET}")
     print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Checking for responses ♦\n{Fore.RESET}{Style.NORMAL}")
-    print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Don't worry if it seems frozen. Requests have a 10 second timeout. ♦\n{Fore.RESET}{Style.NORMAL}")
+    print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Don't worry if it seems frozen. Requests have a {tOut} second timeout. ♦\n{Fore.RESET}{Style.NORMAL}")
     if runScan.dScan == "y" or runScan.dScan == "Y" or runScan.dScan == "yes" or runScan.dScan == "Yes":
         subFile = f"{domain}_full.txt"
     else:
