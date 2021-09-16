@@ -1,9 +1,6 @@
 <p align="center">
    <img src="https://i.ibb.co/dJdVc5M/Screenshot-2021-09-16-11-41-08.png"></img>
 </p>
-<p align="center">
-  <h3 align="center">SilentAsset</h3>
-
   <p align="center">
     Written in Python
     <br/>
