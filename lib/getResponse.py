@@ -68,6 +68,9 @@ def initializeReq(domain,tOut):
     except FileExistsError:
         None
     threads = []
+    jsonLoc = open(reqFile, "a")
+    jsonLoc.write('{ "sites": \n')
+    jsonLoc.close()
     for line in suDo:
         #scanURL(homeDir,domain,line,reqFile,reqDir,doDir)
         t = threading.Thread(target=scanURL,args=(homeDir,domain,line,reqFile,reqDir,doDir,tOut)) 
@@ -76,9 +79,15 @@ def initializeReq(domain,tOut):
         x.start()
     for x in threads:
         x.join()
+    jsonLoc = open(reqFile, "a")
+    jsonLoc.write("\n}")
+    jsonLoc.close()
+    
     
 def scanURL(homeDir,domain,line,reqFile,reqDir,doDir,tOut):
     try:
+        airgap1 = "  "
+        airgap2 = "     "
         url = f"https://{line}"
         headers = requests.utils.default_headers()
         headers['User-Agent'] = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36'
@@ -95,20 +104,28 @@ def scanURL(homeDir,domain,line,reqFile,reqDir,doDir,tOut):
             pTitle = pTitle.findtext('.//title')
         fData = f"{sCode} ! {str(pTitle)}"
         line2 = line.replace('\n',"")
-        jsonStr = {"url" : line2, "sCode" : sCode, "header" : pTitle}
+        jsonStr = f'{airgap1}{{\n{airgap2}"url" : "{line2}", \n{airgap2}"sCode" : "{sCode}", \n{airgap2}"header" : "{pTitle}"\n{airgap1}}},\n'
+        jsonLoc = open(reqFile, "a")
+        jsonLoc.write(str(jsonStr))
+        jsonLoc.close()
     except TimeoutError:
         line2 = line.replace('\n',"")
-        jsonStr = {"url" : line2, "sCode" : "No Response"}
+        jsonStr = f'{airgap1}{{\n{airgap2}"url" : "{line2}", \n{airgap2}"sCode" : "No Response"\n{airgap1}}},\n'
+        jsonLoc = open(reqFile, "a")
+        jsonLoc.write(str(jsonStr))
+        jsonLoc.close()
     except ReadTimeout:
         line2 = line.replace('\n',"")
-        jsonStr = {"url" : line2, "sCode" : "No Response"}
+        jsonStr = f'{airgap1}{{\n{airgap2}"url" : "{line2}", \n{airgap2}"sCode" : "No Response"\n{airgap1}}},\n'
+        jsonLoc = open(reqFile, "a")
+        jsonLoc.write(str(jsonStr))
+        jsonLoc.close()
     except ConnectionError as e:
         line2 = line.replace('\n',"")
-        jsonStr = {"url" : line2, "sCode" : "No Response"}
-    # Gonna do something different here, don't worry about it for the time being.
-    #jsonLoc = open(reqFile, "a")
-    #jsonLoc.write(str(jsonStr))
-    #jsonLoc.close()
+        jsonStr = f'{airgap1}{{\n{airgap2}"url" : "{line2}", \n{airgap2}"sCode" : "No Response"\n{airgap1}}},\n'
+        jsonLoc = open(reqFile, "a")
+        jsonLoc.write(str(jsonStr))
+        jsonLoc.close()
     reqLoc = open(f"{reqDir}{line2}.txt","w")
     try:
         reqLoc.write(fData)

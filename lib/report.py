@@ -30,6 +30,7 @@ def beforeReport(reqDir,homeDir,domain,doDir):
     global domain2
     domain2 = domain
     aSubDom = 0
+    activeDomains = []
     if runScan.dScan == "y" or runScan.dScan == "Y" or runScan.dScan == "yes" or runScan.dScan == "Yes":
         subFile = f"{domain}_full.txt"
     else:
@@ -40,6 +41,8 @@ def beforeReport(reqDir,homeDir,domain,doDir):
         file = open(f"{doDir}requests/{line}")
         contents = file.read()
         if contents.__contains__("200") or contents.__contains__("401") or contents.__contains__("404") or contents.__contains__("403"):
+            urlName = str(line).replace(".txt","")
+            activeDomains.append(urlName)
             aSubDom += 1
     tSubDom = 0
     for i in oSubFile:

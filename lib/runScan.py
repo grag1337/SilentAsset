@@ -47,13 +47,14 @@ try:
         print(f"{Fore.LIGHTRED_EX}{banner}{Fore.RESET}")
         print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ The time has come to scan! ♦\n{Fore.RESET}{Style.NORMAL}")
         print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ This process is currently completely automated ♦\n♦ Feel free to suggest changes that warrant more user input. ♦\n{Fore.RESET}{Style.NORMAL}")
+        print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Inputs marked with asterisks are optional. ♦\n{Fore.RESET}{Style.NORMAL}")
         print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Type {Back.RED}{Fore.WHITE}back{Back.RESET}{Fore.LIGHTRED_EX} to return ♦\n{Fore.RESET}{Style.NORMAL}\n")
         domain = input(f"\n{Fore.LIGHTRED_EX}Domain (e.g ► tesla.com) ►{Fore.CYAN} ")
         if domain == "back" or domain == "Back":
             backVar += 1
             return
         print(f"{Fore.LIGHTRED_EX}✓ Chosen Domain →{Style.BRIGHT} {domain} {Style.NORMAL}{Fore.RESET}")
-        threads = input(f"\n{Fore.LIGHTRED_EX}Threads - Default 20 (e.g ► 20) ►{Fore.CYAN} ")
+        threads = input(f"\n{Fore.LIGHTRED_EX}*Threads - Default 20 (e.g ► 20) ►{Fore.CYAN} ")
         if threads == "":
             threads = 20
         elif threads == "back" or threads == "Back":
@@ -63,7 +64,7 @@ try:
             backVar += 1
             None
         print(f"{Fore.LIGHTRED_EX}✓ Chosen Thread Count →{Style.BRIGHT} {threads} {Style.NORMAL}{Fore.RESET}")
-        dScan = input(f"\n{Fore.LIGHTRED_EX}Deep Scan? - Default n (y/n) (e.g ► y) ►{Fore.CYAN} ")
+        dScan = input(f"\n{Fore.LIGHTRED_EX}*Deep Scan? - Default n (y/n) (e.g ► y) ►{Fore.CYAN} ")
         if dScan == "" or dScan != "y" or dScan != "Y" or dScan != "yes" or dScan != "Yes":
             dScan = "n"
         elif dScan == "back" or dScan == "Back":
@@ -73,7 +74,7 @@ try:
             None    
         print(f"{Fore.LIGHTRED_EX}✓ Deep Scan →{Style.BRIGHT} {dScan} {Style.NORMAL}{Fore.RESET}")
         try:
-            tOut = int(input(f"\n{Fore.LIGHTRED_EX}Request Timeout - Default 10 (e.g ► 5) ►{Fore.CYAN} "))
+            tOut = int(input(f"\n{Fore.LIGHTRED_EX}Request Timeout - Recommended 10 (e.g ► 5) ►{Fore.CYAN} "))
             if tOut == "":
                 tOut = 10
             elif tOut == "back" or tOut == "Back":
