@@ -34,11 +34,11 @@ def checkFor():
     if os.path.isdir(os.getcwd()+"/githubRepos") == False:
         print(f"{Fore.RED}{banner}{Fore.RESET}")
         print(f"{Fore.RED}\n♦ Thanks for using Silent Asset for the first time! ♦\n ♦ We're going to have to do some setup before you begin ♦\n ♦ Would you like to do this now? ♦\n{Fore.RESET}")
-        choice = input(f"{Fore.RED} (y/n) ►{Fore.CYAN} ")
-        if choice == "y" or choice == "Y" or choice == "Yes" or choice == "yes" :
-            setup()
-        else:
+        choice = input(f"{Fore.RED} (Y/n) ►{Fore.CYAN} ")
+        if choice == "n" or choice == "N" or choice == "No" or choice == "no" :
             choiceVar += 1
+        else:
+            setup()
     else:
         None
 def setup():
