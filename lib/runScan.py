@@ -5,7 +5,6 @@ import threading
 from multiprocessing import Process
 from pyppeteer import launch
 from selenium import webdriver
-from lxml.html import fromstring
 from os import system,name
 from colorama import Fore,Back,Style
 try:
@@ -38,6 +37,8 @@ try:
             system('clear')
 
     def initializeScan():
+        global dScan
+        global domain
         clear()
         print(f"{Fore.RED}{banner}{Fore.RESET}")
         print(f"{Fore.RED}{Style.BRIGHT}\n♦ The time has come to scan! ♦\n{Fore.RESET}{Style.NORMAL}")
@@ -54,7 +55,7 @@ try:
         if dScan == "":
             dScan = "n"
         else:
-            None
+            None    
         print(f"{Fore.RED}✓ Deep Scan →{Style.BRIGHT} {dScan} {Style.NORMAL}{Fore.RESET}")
         print(f"\n\n{Fore.RED}{Style.BRIGHT}Press ENTER to begin.{Style.NORMAL}{Fore.RESET}")
         input()
@@ -92,61 +93,10 @@ try:
             os.chdir(f"{homeDir}/output/{domain}/")
             system(f"altdns -i {domain}2.txt -o {domain}_permutations -w {homeDir}/wordlists/subdomains.txt -r -t {threads} -s {domain}_full.txt")
             print(f"\n{Fore.RED}♦ Subdomain Scan 2 Completed ♦{Fore.RESET}")
-            initScreenshot(scanOpt,domain,homeDir)
         else:
-            os.chdir(f"{homeDir}/output/{domain}")
-            initScreenshot(scanOpt,domain,homeDir)
+            None
+        os.chdir(homeDir)
 
-    def initScreenshot(scanOpt,domain,homeDir):
-        if scanOpt == 1:
-            workingDir = os.getcwd()
-            subFile = f"{workingDir}/{domain}_full.txt"
-            oSubFile = open(subFile,"r")
-            totSubs = 0
-            for i in oSubFile:
-                totSubs += 1
-            oSubFile.close()
-        else:
-            workingDir = os.getcwd()
-            subFile = f"{workingDir}/{domain}2.txt"
-            oSubFile = open(subFile,"r")
-            totSubs = 0
-            for i in oSubFile:
-                totSubs += 1
-            oSubFile.close()
-        try:
-            os.mkdir("images/")
-        except:
-            None
-        try:
-            os.mkdir("requests/")
-        except:
-            None
-        oSubFile = open(subFile,"r")
-        global scHots
-        scHots = 0
-        for line in oSubFile:
-            print(f"{Fore.RED} ★ [{scHots}\{totSubs}] Hosts Scanned{Fore.RESET}")
-            asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain))
-            scHots += 1
-            
-    async def screenshot(line,homeDir,domain):
-        print("ASDASDASD")
-        browser = await launch(headless=True)
-        page = await browser.newPage()
-        url = f"https://{line}"
-        reqOut = requests.get(url.replace("\n",""))
-        sCode = str(reqOut).replace("<Response [","").replace("]>","")
-        pTitle = fromstring(reqOut.content)
-        pTitle = pTitle.findtext('.//title')
-        fData = f"{sCode} ! {str(pTitle)}"
-        line2 = line.replace('\n',"")
-        reqLoc = open(f"{homeDir}/output/{domain}/requests/{line2}.txt","w")
-        reqLoc.write(fData)
-        reqLoc.close()
-        await page.goto(str(url))
-        await page.screenshot({'path': f'images/{line}.png', 'fullPage': True})
-        await browser.close()
 
 except KeyboardInterrupt:
     print(f"{Fore.RED}{Style.BRIGHT}\n\n ★ Ctrl+C Detected, exiting cleanly... ★{Style.NORMAL}{Fore.RESET}")

@@ -4,6 +4,8 @@
 from os import system, name
 from lib.firstStart import * 
 from lib.runScan import *
+from lib.getResponse import *
+import lib.runScan as runScan
 import lib.firstStart as firstStart
 from colorama import Fore,Back,Style
 
@@ -63,6 +65,8 @@ try:
             quit()
         elif getStarted.__contains__("scan") or getStarted.__contains__("Scan"):
             initializeScan()
+            initializeReq(runScan.domain)
+            clear()
             inputloop(f"✓ {getStarted}")
         elif getStarted == "about" or getStarted == "About":
             inputloop(f"✓ {getStarted}")
