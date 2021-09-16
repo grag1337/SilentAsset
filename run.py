@@ -77,8 +77,7 @@ try:
                 inputloop(f"✓ {getStarted}")
             else:
                 initializeReq(runScan.domain,runScan.tOut)
-                beforeReport(getResponse.reqDir,getResponse.homeDir,runScan.domain,getResponse.doDir)
-                begParse(getResponse.reqFile)
+                beforeReport(getResponse.reqDir,getResponse.homeDir,runScan.domain,getResponse.doDir,getResponse.reqFile)
                 clear()
                 inputloop(f"✓ {getStarted}")
         elif getStarted == "about" or getStarted == "About":

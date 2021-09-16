@@ -83,33 +83,22 @@ def initializeReq(domain,tOut):
     airgap1 = " "
     airgap2 = "     "
     jsonLoc = open(reqFile, "a")
-    jsonLoc.write(f'{{\n{airgap1}"urls": \n{airgap1}{{\n')
-    jsonLoc.write(f'\n{airgap2}"{urlList[0]}":"{sCodeList[0]}"')
-    for i in urlList[1:]:
-        try:
-            sCodeLoc = urlList.index(i)
-            jsonLoc.write(f',\n{airgap2}"{i}":"{sCodeList[sCodeLoc]}"')
-        except IndexError:
-            None
-    jsonLoc.write(f'{airgap1}}},\n')
-    jsonLoc.write(f'{airgap1}"headers": \n{airgap1}{{\n')
-    pTitleForm = pTitleList[0]
-    pTitleForm = pTitleForm.strip().replace("\n","")
-    jsonLoc.write(f'\n{airgap2}"{urlList[0]}":"{pTitleForm}"')
+    jsonLoc.write(f"[\n")
+    jsonLoc.write(f'{airgap1}{{\n{airgap2}"url" : "{urlList[0]}",\n{airgap2}"header" : "{pTitleList[0]}",\n{airgap2}"sCode" : "{sCodeList[0]}"\n{airgap1}}}')
     for i in urlList[1:]:
         try:
             pTitleLoc = urlList.index(i)
+            sCodeLoc = urlList.index(i)
             try:
                 pTitleForm = pTitleList[pTitleLoc]
                 pTitleForm = pTitleForm.strip().replace("\n","")
             except AttributeError:
                 pTitleForm = ""
-                None
-            jsonLoc.write(f',\n{airgap2}"{i}":"{pTitleForm}"')
+            jsonLoc.write(f',\n{airgap1}{{\n{airgap2}"url" : "{i}",\n{airgap2}"header" : "{pTitleForm}",\n{airgap2}"sCode" : "{sCodeList[sCodeLoc]}"\n{airgap1}}}')
         except IndexError:
             None
-    jsonLoc.write(f"\n{airgap2}}}\n{airgap1}}}")
-
+    jsonLoc.write("\n]")
+    jsonLoc.close()
 
 def scanURL(homeDir,domain,line,reqFile,reqDir,doDir,tOut,urlList,sCodeList,pTitleList):
     try:
@@ -127,7 +116,6 @@ def scanURL(homeDir,domain,line,reqFile,reqDir,doDir,tOut,urlList,sCodeList,pTit
             None
         else:
             pTitle = pTitle.findtext('.//title')
-        fData = f"{sCode} ! {str(pTitle)}"
         line2 = line.replace('\n',"")
         urlList.append(line2)
         sCodeList.append(sCode)
@@ -145,13 +133,6 @@ def scanURL(homeDir,domain,line,reqFile,reqDir,doDir,tOut,urlList,sCodeList,pTit
             None
     except ConnectionError as e:
         line2 = line.replace('\n',"")
-    reqLoc = open(f"{reqDir}{line2}.txt","w")
-    try:
-        reqLoc.write(fData)
-        reqLoc.close()
-    except UnboundLocalError:
-        reqLoc.close()
-        system(f"rm {reqDir}{line2}.txt")    
 
 """
 Screenshot Function (:
