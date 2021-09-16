@@ -69,6 +69,11 @@ try:
             clear()
             inputloop(f"✓ {getStarted}")
         elif getStarted == "about" or getStarted == "About":
+            print("\n\n\n")
+            print(f"{Fore.YELLOW}{Style.BRIGHT} ◊ ABOUT ◊ \n{Fore.RESET}{Style.NORMAL}")
+            print(f"{Fore.YELLOW}→ After trying to make-do with a handful of asset discovery tools,\nI decided that it was time to just create something that does what I want, how I want it.\nThis is an ongoing project and features are prone to change / deletion.\nI'm taking any/all suggestions and code additions that assist in creating a tool that can compete with it's predecessors.\n\n\n\n ♦ ENTER TO RETURN ♦ \n\n\n{Fore.RESET}")
+            input()
+            clear()
             inputloop(f"✓ {getStarted}")
         else:
             inputloop(f"✕ {getStarted}")
