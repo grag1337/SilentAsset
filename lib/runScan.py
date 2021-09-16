@@ -40,6 +40,7 @@ try:
         global tSubDom
         global dScan
         global domain
+        global tOut
         clear()
         print(f"{Fore.RED}{banner}{Fore.RESET}")
         print(f"{Fore.RED}{Style.BRIGHT}\n♦ The time has come to scan! ♦\n{Fore.RESET}{Style.NORMAL}")
@@ -58,6 +59,12 @@ try:
         else:
             None    
         print(f"{Fore.RED}✓ Deep Scan →{Style.BRIGHT} {dScan} {Style.NORMAL}{Fore.RESET}")
+        tOut = input(f"\n{Fore.RED}Request Timeout - Default 10 (e.g ► 5) ►{Fore.CYAN} ")
+        if tOut != int or tOut == "":
+            tOut = 10
+        else:
+            None    
+        print(f"{Fore.RED}✓ Timeout Chosen →{Style.BRIGHT} {tOut} {Style.NORMAL}{Fore.RESET}")
         print(f"\n\n{Fore.RED}{Style.BRIGHT}Press ENTER to begin.{Style.NORMAL}{Fore.RESET}")
         input()
         subScan(domain,threads,dScan)

@@ -5,6 +5,7 @@ from os import system, name
 from lib.firstStart import * 
 from lib.runScan import *
 from lib.getResponse import *
+from lib.report import *
 from colorama import Fore,Back,Style
 import lib.runScan as runScan
 import lib.firstStart as firstStart 
@@ -67,7 +68,7 @@ try:
             exit()
         elif getStarted.__contains__("scan") or getStarted.__contains__("Scan"):
             initializeScan()
-            initializeReq(runScan.domain)
+            initializeReq(runScan.domain,runScan.tOut)
             beforeReport(getResponse.reqDir,getResponse.homeDir,runScan.domain,getResponse.doDir)
             clear()
             inputloop(f"✓ {getStarted}")
