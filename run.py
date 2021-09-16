@@ -8,7 +8,6 @@ from lib.firstStart import *
 from lib.runScan import *
 from lib.getResponse import *
 from lib.report import *
-from lib.jsonParse import *
 from colorama import Fore,Back,Style
 import lib.runScan as runScan
 import lib.firstStart as firstStart 
