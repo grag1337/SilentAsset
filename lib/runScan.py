@@ -66,17 +66,17 @@ try:
             backVar += 1
             None
         print(f"{Fore.LIGHTRED_EX}✓ Chosen Thread Count →{Style.BRIGHT} {threads} {Style.NORMAL}{Fore.RESET}")
-        #dScan = input(f"\n{Fore.LIGHTRED_EX}*Deep Scan? - Default n (y/n) (e.g ► y) ►{Fore.CYAN} ")
-        #if dScan == "back" or dScan == "Back":
-        #    backVar += 1
-        #    return
-        #if dScan == "y" or dScan == "Y" or dScan == "yes" or dScan == "Yes":
-        #    dScan = "y"
-        #else:
-        #    dScan = "n"
-        #print(f"{Fore.LIGHTRED_EX}✓ Deep Scan →{Style.BRIGHT} {dScan} {Style.NORMAL}{Fore.RESET}")
+        dScan = input(f"\n{Fore.LIGHTRED_EX}*Deep Scan? - Default n (y/n) (e.g ► y) ►{Fore.CYAN} ")
+        if dScan == "back" or dScan == "Back":
+            backVar += 1
+            return
+        if dScan == "y" or dScan == "Y" or dScan == "yes" or dScan == "Yes":
+            dScan = "y"
+        else:
+            dScan = "n"
+        print(f"{Fore.LIGHTRED_EX}✓ Deep Scan →{Style.BRIGHT} {dScan} {Style.NORMAL}{Fore.RESET}")
         try:
-            tOut = int(input(f"\n{Fore.LIGHTRED_EX}Request Timeout - Recommended 10 (e.g ► 5) ►{Fore.CYAN} "))
+            tOut = int(input(f"\n{Fore.LIGHTRED_EX}Request Timeout - Recommended 15 (e.g ► 5) ►{Fore.CYAN} "))
             if tOut == "":
                 tOut = 10
             elif tOut == "back" or tOut == "Back":
@@ -115,45 +115,47 @@ try:
             if line.__contains__(".com") == False or line.__contains__("Enumerating") or line.__contains__("Forked"):
                 None
             else:
-                subdomainOutput.write(line)
+                line2 = line.replace("www.","")
+                subdomainOutput.write(line2)
+        subdomainOutput.close()
+        
         print(f"\n{Fore.LIGHTRED_EX}♦ Subdomain Scan 1 Completed ♦{Fore.RESET}")
         scanOpt = 0
         lResults.close()
         system(f"rm {homeDir}/output/{domain}/{domain}.txt")
-        """
         if dScan == 'y' or dScan == 'Y' or dScan == 'yes' or dScan == 'Yes':
-            try:
-                scanOpt += 1
-                print(f"\n{Fore.LIGHTRED_EX}♦ Subdomain Scan 2 Initiated ♦{Fore.RESET}")
-                print(f"\n{Fore.LIGHTRED_EX}♦ Don't worry if it looks stuck, it's doing its job. ♦{Fore.RESET}")
-                os.chdir(f"{homeDir}/output/{domain}/")
-                system(f"altdns -i {domain}2.txt -o {domain}_permutations -w {homeDir}/wordlists/subdomains.txt -r -t {threads} -s {domain}_full.txt")
-                print(f"\n{Fore.LIGHTRED_EX}♦ Subdomain Scan 2 Completed ♦{Fore.RESET}")
-                try:
-                    permSub = open(f"{domain}_full.txt","x")
-                    permSub.close()
-                except FileExistsError:
+            #try:
+            subdomainOutput = open(f"{homeDir}/output/{domain}/{domain}2.txt",'r')
+            subby = []
+            for i in subdomainOutput:
+                subby.append(i)
+            subdomainOutput.close()
+            subdomainOutput = open(f"{homeDir}/output/{domain}/{domain}2.txt",'a')
+            scanOpt += 1
+            print(f"\n{Fore.LIGHTRED_EX}♦ Subdomain Scan 2 Initiated ♦{Fore.RESET}")
+            print(f"\n{Fore.LIGHTRED_EX}♦ Don't worry if it looks stuck, it's doing its job. ♦{Fore.RESET}")
+            os.chdir(f"{homeDir}/output/{domain}/")
+            system(f"/{homeDir}/githubRepos/findomain-linux -t {domain} -q > {domain}3.txt")
+            print(f"\n{Fore.LIGHTRED_EX}♦ Subdomain Scan 2 Completed ♦{Fore.RESET}")
+            permSub = open(f"{domain}3.txt","r")
+            for i in permSub:
+                if i in subby:
                     None
-                permSub = open(f"{domain}_full.txt","a")
-                system(f"rm {domain}_permutations")
-                for i in permSub.read():
-                    line = i.split(":",1)
-                    if line in subdomainOutput.read():
-                        None
-                    else:
-                        subdomainOutput.write(line[0])
-                subdomainOutput.close()
-                os.chdir(homeDir)
-            except UnsupportedOperation:
+                else:
+                    subdomainOutput.write(i)
+            subdomainOutput.close()
+            permSub.close()
+            os.chdir(homeDir)
+            """
+            except:
                 print(f"{Fore.RED}{Style.BRIGHT}♦ An error during the second subdomain scan has occured...\n Defaulting to Scan 1's subdomain list... ♦{Style.NORMAL}{Fore.RESET}")
                 print(f"{Fore.RED}♦ ENTER to continue... ♦ {Fore.RESET}")
                 input()
                 scanOpt = 0
                 return
-        
+            """
         else:
             None
-        """
         os.chdir(homeDir)
 
 

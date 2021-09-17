@@ -1,4 +1,4 @@
-from os import stat, system, name
+from os import system, name
 from colorama import Fore,Back,Style
 from lib.runScan import *
 import lib.runScan as runScan
@@ -32,24 +32,22 @@ def beforeReport(reqDir,homeDir,domain,doDir,reqLoc):
     domain2 = domain
     aSubDom = 0
     activeDomains = []
-    if runScan.dScan == "y" or runScan.dScan == "Y" or runScan.dScan == "yes" or runScan.dScan == "Yes":
-        subFile = f"{domain}_full.txt"
-    else:
-        subFile = f"{domain}2.txt"
+    subFile = f"{domain}2.txt"
     oSubFile = open(f"{doDir}{subFile}","r")
     repDir = f"{doDir}requests"
     for line in os.listdir(repDir):
         file = open(f"{doDir}requests/{line}")
         contents = file.read()
-        if contents.__contains__("200") or contents.__contains__("401") or contents.__contains__("404") or contents.__contains__("403"):
-            urlName = str(line).replace(".txt","")
-            activeDomains.append(urlName)
-            aSubDom += 1
     tSubDom = 0
     for i in oSubFile:
         tSubDom += 1
     os.mkdir(f"{doDir}report/")
     doReport(reqLoc,doDir)
+    jsonInit = open(reqLoc,'r')
+    jsonData = json.loads(jsonInit.read())
+    jsonInit.close()  
+    for d in jsonData:
+      aSubDom += 1
     template = f"""
     <!doctype html>
     <html lang="en">
@@ -107,7 +105,7 @@ def doReport(reqLoc,doDir):
     for d in jsonData:
       statusCode = d["sCode"]
       if statusCode == i:
-        uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]}</a>'
+        uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a>'
     sCodeTemplate = f"""
       <!doctype html>
       <html lang="en">

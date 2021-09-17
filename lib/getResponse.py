@@ -3,11 +3,13 @@ import requests
 import threading
 #import json
 import socket
+
+from requests.sessions import TooManyRedirects
 import lib.runScan as runScan
 from time import sleep
 from colorama import Fore,Back,Style
 from os import system, name
-from requests.exceptions import ConnectionError, ReadTimeout
+from requests.exceptions import ConnectionError, ReadTimeout, SSLError
 from lxml.html import fromstring
 
 
@@ -55,10 +57,7 @@ def initializeReq(domain,tOut):
     print(f"{Fore.LIGHTRED_EX}{banner}{Fore.RESET}")
     print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Checking for responses ♦\n{Fore.RESET}{Style.NORMAL}")
     print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Don't worry if it seems frozen. Requests have a {tOut} second timeout. ♦\n{Fore.RESET}{Style.NORMAL}")
-    if runScan.dScan == "y" or runScan.dScan == "Y" or runScan.dScan == "yes" or runScan.dScan == "Yes":
-        subFile = f"{domain}_full.txt"
-    else:
-        subFile = f"{domain}2.txt"
+    subFile = f"{domain}2.txt"
     homeDir = os.getcwd()
     doDir = f"{homeDir}/output/{domain}/"
     reqDir = f"{homeDir}/output/{domain}/requests/"
@@ -73,7 +72,6 @@ def initializeReq(domain,tOut):
         None
     threads = []
     for line in suDo:
-        #scanURL(homeDir,domain,line,reqFile,reqDir,doDir)
         t = threading.Thread(target=scanURL,args=(homeDir,domain,line,reqFile,reqDir,doDir,tOut,urlList,sCodeList,pTitleList)) 
         threads.append(t)
     for x in threads:        
@@ -133,6 +131,10 @@ def scanURL(homeDir,domain,line,reqFile,reqDir,doDir,tOut,urlList,sCodeList,pTit
             None
     except ConnectionError as e:
         line2 = line.replace('\n',"")
+    except TooManyRedirects:
+        None
+    except:
+        None
 
 """
 Screenshot Function (:
