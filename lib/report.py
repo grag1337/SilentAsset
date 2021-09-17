@@ -137,4 +137,4 @@ def doReport(reqLoc,doDir):
     codeReport = open(f"{doDir}report/{i}/{i}.html","w")
     codeReport.write(sCodeTemplate)
     codeReport.close()
-    sCodeLiMark += f'<a href="{i}/{i}.html" class="text-muted">{i}: {count}</a><br>'
+    sCodeLiMark += f'<a href="{i}/{i}.html" class="text-muted">➳ {i}: {count}</a><br>'
