@@ -110,4 +110,4 @@ Distributed under the MIT License. See [LICENSE](https://github.com/Grag1337/Sil
 * [Othneil Drew](https://github.com/othneildrew/Best-README-Template)
 * [ImgShields](https://shields.io/)
 * [Turbolist3r](https://github.com/fleetcaptain/Turbolist3r)
-* [AltDNS](https://github.com/infosec-au/altdns)
+* [FindDomain](https://github.com/Findomain/Findomain)
