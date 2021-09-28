@@ -80,17 +80,29 @@ def initScreenshot(resDir,twoSCode,threeSCode,fourSCode,fiveSCode,domain,homeDir
     totLen += len(fiveHunUrl)
     totScanTime = (int(average) * totLen) / 60
     print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Estimated {int(average)} second/s per request. ♦\n{Fore.RESET}{Style.NORMAL}")
-    print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Estimated {round(totScanTime,1)} minute/s to complete screenshots. ♦\n{Fore.RESET}{Style.NORMAL}")
+    print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Estimated {round(totScanTime,1)} minute/s to complete screenshots. ♦{Fore.RESET}{Style.NORMAL}")
+    print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ This number could be COMPLETELY wrong ♦\n{Fore.RESET}{Style.NORMAL}")
     print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}\n♦ Beginning subdomain screenshot/s now. ♦\n{Fore.RESET}{Style.NORMAL}")
-    for line in twoHunUrl:
-        asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain,"200"))
-    for line in threeHunUrl:
-        asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain,"300"))
-    for line in fourHunUrl:
-        asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain,"400"))
-    for line in fiveHunUrl:
-        asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain,"500"))
-    
+    if not twoHunUrl:
+        None
+    else:
+        for line in twoHunUrl:
+            asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain,"200"))
+    if not threeHunUrl:
+        None
+    else:
+        for line in threeHunUrl:
+            asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain,"300"))
+    if not fourHunUrl:
+        None
+    else:
+        for line in fourHunUrl:
+            asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain,"400"))
+    if not fiveHunUrl:
+        None
+    else:
+        for line in fiveHunUrl:
+            asyncio.get_event_loop().run_until_complete(screenshot(line,homeDir,domain,"500"))
         
 async def screenshot(line,homeDir,domain,sCode):
     if sCode == "benchmark":
@@ -99,7 +111,7 @@ async def screenshot(line,homeDir,domain,sCode):
         page = await browser.newPage()
         url = f"https://{line}"
         await page.goto(str(url))
-        await page.screenshot({'path': f'{homeDir}/output/{domain}/{line}.png', 'fullPage': True})
+        await page.screenshot({'path': f'{homeDir}/output/{domain}/{line}.png'})
         await browser.close()
         timeEnd = time.time()
         os.remove(f'{homeDir}/output/{domain}/{line}.png')
@@ -113,8 +125,9 @@ async def screenshot(line,homeDir,domain,sCode):
         browser = await launch(headless=True)
         page = await browser.newPage()
         url = f"https://{line}"
+        #print(f"Shotting {url}")
         await page.goto(str(url))
-        await page.screenshot({'path': f'{homeDir}/output/{domain}/report/{sCode}/{line}.png', 'fullPage': True})
+        await page.screenshot({'path': f'{homeDir}/output/{domain}/report/{sCode}/{line}.png'})
         await browser.close()
 
     

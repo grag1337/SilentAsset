@@ -31,7 +31,6 @@ def beforeReport(reqDir,homeDir,domain,doDir,reqLoc):
     global domain2
     domain2 = domain
     aSubDom = 0
-    activeDomains = []
     subFile = f"{domain}2.txt"
     oSubFile = open(f"{doDir}{subFile}","r")
     repDir = f"{doDir}requests"
@@ -102,7 +101,10 @@ def doReport(reqLoc,doDir):
     if statusCode not in sCodeIt:
       sCodeIt.append(statusCode)
   for i in sCodeIt:
-    os.mkdir(f"{doDir}report/{i}")
+    try:
+      os.mkdir(f"{doDir}report/{i}")
+    except:
+      None
     count = sCodes.count(i)
     uSCodes = f'<br><span class="text-muted">Here are the results for: <b>{i}</b></span><br>'
     for d in jsonData:
