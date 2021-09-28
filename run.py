@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # Using AltDNS, Turbolist3r
 # You're gonna get jumped with the 100mb chromium install.
+from lib.screenshot import initScreenshot
 from os import system, name
 
 from lxml.html import InputElement
@@ -76,13 +77,17 @@ try:
                 inputloop(f"✓ {getStarted}")
             else:
                 initializeReq(runScan.domain,runScan.tOut)
+                if runScan.sSubDom == "y":
+                    initScreenshot(getResponse.reqFile,runScan.twoSCode,runScan.threeSCode,runScan.fourSCode,runScan.fiveSCode,runScan.domain,getResponse.homeDir)
+                else:
+                    None
                 beforeReport(getResponse.reqDir,getResponse.homeDir,runScan.domain,getResponse.doDir,getResponse.reqFile)
                 clear()
                 inputloop(f"✓ {getStarted}")
         elif getStarted == "about" or getStarted == "About":
             print("\n\n\n")
             print(f"{Fore.LIGHTYELLOW_EX}{Style.BRIGHT} ◊ ABOUT ◊ \n{Fore.RESET}{Style.NORMAL}")
-            print(f"{Fore.LIGHTYELLOW_EX}→ After trying to make-do with a handful of asset discovery tools,\nI decided that it was time to just create something that does what I want, how I want it.\nThis is an ongoing project and features are prone to change / deletion.\nI'm taking any/all suggestions and code additions that assist in creating a tool that can compete with it's pLIGHTRED_EXecessors.\n\n\n\n ♦ ENTER TO RETURN ♦ \n\n\n{Fore.RESET}")
+            print(f"{Fore.LIGHTYELLOW_EX}→ After trying to make-do with a handful of asset discovery tools,\nI decided that it was time to just create something that does what I want, how I want it.\nThis is an ongoing project and features are prone to change / deletion.\nI'm taking any/all suggestions and code additions that assist in creating a tool that can compete with it's successors.\n\n\n\n ♦ ENTER TO RETURN ♦ \n\n\n{Fore.RESET}")
             input()
             clear()
             inputloop(f"✓ {getStarted}")

@@ -44,6 +44,11 @@ try:
         global domain
         global tOut
         global backVar
+        global twoSCode
+        global threeSCode
+        global fourSCode
+        global fiveSCode
+        global sSubDom
         backVar = 0
         clear()
         print(f"{Fore.LIGHTRED_EX}{banner}{Fore.RESET}")
@@ -92,6 +97,42 @@ try:
             return
 
         print(f"{Fore.LIGHTRED_EX}✓ Timeout Chosen →{Style.BRIGHT} {tOut} {Style.NORMAL}{Fore.RESET}")
+        sSubDom = input(f"\n{Fore.LIGHTRED_EX}*Would you like to screenshot active subdomains? - Default n (y/n) (e.g ► y) ►{Fore.CYAN} ")
+        if sSubDom == "back" or sSubDom == "Back":
+            backVar += 1
+            return
+        if sSubDom == "y" or sSubDom == "Y" or sSubDom == "yes" or sSubDom == "Yes":
+            sSubDom = "y"
+        else:
+            sSubDom = "n"
+        if sSubDom == "y":
+            print(f"{Fore.LIGHTRED_EX}Please select which status codes you would like to screenshot: ")
+            twoSCode = input(f"{Fore.LIGHTRED_EX}→ 2XX (y/n) (e.g ► y) ►{Fore.CYAN} ")
+            if twoSCode == "y" or twoSCode == "Y" or twoSCode == "yes" or twoSCode == "Yes":
+                twoSCode = "y"
+            else:
+                twoSCode = "n"
+            print(f"{Fore.LIGHTRED_EX}✓ Option Chosen →{Style.BRIGHT} {twoSCode} {Style.NORMAL}{Fore.RESET}")
+            threeSCode = input(f"{Fore.LIGHTRED_EX}→ 3XX (y/n) (e.g ► y) ►{Fore.CYAN} ")
+            if threeSCode == "y" or threeSCode == "Y" or threeSCode == "yes" or threeSCode == "Yes":
+                threeSCode = "y"
+            else:
+                threeSCode = "n"
+            print(f"{Fore.LIGHTRED_EX}✓ Option Chosen →{Style.BRIGHT} {threeSCode} {Style.NORMAL}{Fore.RESET}")
+            fourSCode = input(f"{Fore.LIGHTRED_EX}→ 4XX (y/n) (e.g ► y) ►{Fore.CYAN} ")
+            if fourSCode == "y" or fourSCode == "Y" or fourSCode == "yes" or fourSCode == "Yes":
+                fourSCode = "y"
+            else:
+                fourSCode = "n"
+            print(f"{Fore.LIGHTRED_EX}✓ Option Chosen →{Style.BRIGHT} {fourSCode} {Style.NORMAL}{Fore.RESET}")
+            fiveSCode = input(f"{Fore.LIGHTRED_EX}→ 5XX (y/n) (e.g ► y) ►{Fore.CYAN} ")
+            if fiveSCode == "y" or fiveSCode == "Y" or fiveSCode == "yes" or fiveSCode == "Yes":
+                fiveSCode = "y"
+            else:
+                fiveSCode = "n"                            
+            print(f"{Fore.LIGHTRED_EX}✓ Option Chosen →{Style.BRIGHT} {fiveSCode} {Style.NORMAL}{Fore.RESET}")
+        else:
+            None
         print(f"\n\n{Fore.LIGHTRED_EX}{Style.BRIGHT}Press ENTER to begin.{Style.NORMAL}{Fore.RESET}")
         input()
         subScan(domain,threads,dScan)

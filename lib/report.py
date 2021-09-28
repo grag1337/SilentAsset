@@ -41,7 +41,10 @@ def beforeReport(reqDir,homeDir,domain,doDir,reqLoc):
     tSubDom = 0
     for i in oSubFile:
         tSubDom += 1
-    os.mkdir(f"{doDir}report/")
+    try:
+      os.mkdir(f"{doDir}report/")
+    except:
+      None
     doReport(reqLoc,doDir)
     jsonInit = open(reqLoc,'r')
     jsonData = json.loads(jsonInit.read())
