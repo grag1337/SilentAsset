@@ -59,10 +59,14 @@ $ sudo apt-get install python3.8
 git clone https://github.com/grag1337/SilentAsset.git
 ```
 
-2. (Optional) Install Requirements
+2. Install Requirements
 
 ```sh
 pip3 install -r requirements.txt
+```
+or
+```sh
+sudo pip3 install -r requirements.txt
 ```
 
 3. Run the program, it will do an initial installation.
