@@ -81,7 +81,7 @@ try:
                     initScreenshot(getResponse.reqFile,runScan.twoSCode,runScan.threeSCode,runScan.fourSCode,runScan.fiveSCode,runScan.domain,getResponse.homeDir)
                 else:
                     None
-                beforeReport(getResponse.reqDir,getResponse.homeDir,runScan.domain,getResponse.doDir,getResponse.reqFile)
+                beforeReport(getResponse.reqDir,getResponse.homeDir,runScan.domain,getResponse.doDir,getResponse.reqFile,runScan.sSubDom,runScan.twoSCode,runScan.threeSCode,runScan.fourSCode,runScan.fiveSCode)
                 clear()
                 inputloop(f"✓ {getStarted}")
         elif getStarted == "about" or getStarted == "About":

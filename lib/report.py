@@ -26,7 +26,7 @@ banner = """
     ░  ░      ░        ░     ░  ░             
 """
 
-def beforeReport(reqDir,homeDir,domain,doDir,reqLoc):
+def beforeReport(reqDir,homeDir,domain,doDir,reqLoc,sHotValue,twoSCode,threeSCode,fourSCode,fiveSCode):
     global aSubDom
     global domain2
     domain2 = domain
@@ -44,7 +44,7 @@ def beforeReport(reqDir,homeDir,domain,doDir,reqLoc):
       os.mkdir(f"{doDir}report/")
     except:
       None
-    doReport(reqLoc,doDir)
+    doReport(reqLoc,doDir,sHotValue,twoSCode,threeSCode,fourSCode,fiveSCode)
     jsonInit = open(reqLoc,'r')
     jsonData = json.loads(jsonInit.read())
     jsonInit.close()  
@@ -86,8 +86,7 @@ def beforeReport(reqDir,homeDir,domain,doDir,reqLoc):
     print(f"{Fore.LIGHTRED_EX}♦ Press ENTER to continue... ♦{Fore.RESET}")
     input()
     
-
-def doReport(reqLoc,doDir):
+def doReport(reqLoc,doDir,sHotValue,twoSCode,threeSCode,fourSCode,fiveSCode):
   global sCodeLiMark
   jsonInit = open(reqLoc,'r')
   jsonData = json.loads(jsonInit.read())
@@ -110,7 +109,21 @@ def doReport(reqLoc,doDir):
     for d in jsonData:
       statusCode = d["sCode"]
       if statusCode == i:
-        uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a>'
+        if sHotValue == "y":
+          if statusCode == "200":
+            if twoSCode == "y":
+              uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a><br><a target="_blank" href="{d["url"]}.png"><img src="{d["url"]}.png"></a>'
+          elif statusCode == "300":
+            if threeSCode == "y":
+              uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a><br><a target="_blank" href="{d["url"]}.png"><img src="{d["url"]}.png"></a>'
+          elif statusCode == "400":
+            if fourSCode == "y":
+              uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a><br><a target="_blank" href="{d["url"]}.png"><img src="{d["url"]}.png"></a>'
+          elif statusCode == "500":
+            if fiveSCode == "y":
+              uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a><br><a target="_blank" href="{d["url"]}.png"><img src="{d["url"]}.png"></a>'
+        else:
+          uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a>'
     sCodeTemplate = f"""
       <!doctype html>
       <html lang="en">
@@ -122,7 +135,19 @@ def doReport(reqLoc,doDir):
         </head>
 
         <body>
+          <style>
+          img {{
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+            padding: 5px; 
+            width: 150px; 
+          }}
 
+          
+          img:hover {{
+            box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+          }}
+          </style>
           <main role="main" class="container">
             <h1 class="mt-5">SilentAsset Report</h1>
             <p class="lead">Status Code List for {i}</p>

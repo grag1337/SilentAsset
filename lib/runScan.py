@@ -177,6 +177,7 @@ try:
             print(f"\n{Fore.LIGHTRED_EX}♦ Don't worry if it looks stuck, it's doing its job. ♦{Fore.RESET}")
             os.chdir(f"{homeDir}/output/{domain}/")
             system(f"/{homeDir}/githubRepos/findomain-linux -t {domain} -q > {domain}3.txt")
+            """Run Gobuster DNS also with the subdomain list. (:"""
             print(f"\n{Fore.LIGHTRED_EX}♦ Subdomain Scan 2 Completed ♦{Fore.RESET}")
             permSub = open(f"{domain}3.txt","r")
             for i in permSub:
