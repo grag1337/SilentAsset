@@ -51,7 +51,7 @@ $ sudo apt-get update
 $ sudo apt-get install python3.8
 ```
 
-* Go
+* Go<br>
 You need this to run and install gobuster, if you don't have go installed the intial setup will fail.
 
 ```sh
