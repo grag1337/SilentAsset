@@ -68,7 +68,6 @@ try:
             backVar += 1
             return
         else:
-            backVar += 1
             None
         print(f"{Fore.LIGHTRED_EX}✓ Chosen Thread Count →{Style.BRIGHT} {threads} {Style.NORMAL}{Fore.RESET}")
         dScan = input(f"\n{Fore.LIGHTRED_EX}*Deep Scan? - Default n (y/n) (e.g ► y) ►{Fore.CYAN} ")
@@ -177,7 +176,18 @@ try:
             print(f"\n{Fore.LIGHTRED_EX}♦ Don't worry if it looks stuck, it's doing its job. ♦{Fore.RESET}")
             os.chdir(f"{homeDir}/output/{domain}/")
             system(f"/{homeDir}/githubRepos/findomain-linux -t {domain} -q > {domain}3.txt")
-            """Run Gobuster DNS also with the subdomain list. (:"""
+            system(f"/{homeDir}/githubRepos/gobuster dns -d {domain} -w {homeDir}/wordlists/subdomains.txt -q -t {threads} -z > {domain}4_temp.txt")
+            tempWrite = open(f"{domain}3.txt","a+")
+            tempRead = open(f"{domain}4_temp.txt","r")
+            for i in tempRead:
+                i2 = i.replace("Found: ","")
+                if i2 in tempWrite:
+                    None
+                else:
+                    tempWrite.write(i2)
+            tempRead.close()
+            tempWrite.close()
+            system(f"rm {domain}4_temp.txt")
             print(f"\n{Fore.LIGHTRED_EX}♦ Subdomain Scan 2 Completed ♦{Fore.RESET}")
             permSub = open(f"{domain}3.txt","r")
             for i in permSub:

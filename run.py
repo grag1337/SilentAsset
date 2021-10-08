@@ -59,6 +59,7 @@ try:
             quit()
         else:
             None
+        clear()
         print(f"{Fore.LIGHTRED_EX}{banner}{Fore.RESET}")
         print(f"{Fore.LIGHTRED_EX}{Style.BRIGHT}♦ To get started type {Back.RED}{Fore.WHITE}help{Fore.LIGHTRED_EX}{Back.RESET} ♦ {Style.NORMAL}{Fore.RESET}")
         getStarted = input(f"\n{Fore.LIGHTRED_EX}{lastCommand} ►{Fore.CYAN} ")
