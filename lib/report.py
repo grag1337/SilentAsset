@@ -26,7 +26,7 @@ banner = """
     ░  ░      ░        ░     ░  ░             
 """
 
-def beforeReport(reqDir,homeDir,domain,doDir,reqLoc,sHotValue,twoSCode,threeSCode,fourSCode,fiveSCode):
+def beforeReport(reqDir,homeDir,domain,doDir,reqLoc,sHotValue):
     global aSubDom
     global domain2
     domain2 = domain
@@ -44,7 +44,7 @@ def beforeReport(reqDir,homeDir,domain,doDir,reqLoc,sHotValue,twoSCode,threeSCod
       os.mkdir(f"{doDir}report/")
     except:
       None
-    doReport(reqLoc,doDir,sHotValue,twoSCode,threeSCode,fourSCode,fiveSCode)
+    doReport(reqLoc,doDir,sHotValue)
     jsonInit = open(reqLoc,'r')
     jsonData = json.loads(jsonInit.read())
     jsonInit.close()  
@@ -86,7 +86,7 @@ def beforeReport(reqDir,homeDir,domain,doDir,reqLoc,sHotValue,twoSCode,threeSCod
     print(f"{Fore.LIGHTRED_EX}♦ Press ENTER to continue... ♦{Fore.RESET}")
     input()
     
-def doReport(reqLoc,doDir,sHotValue,twoSCode,threeSCode,fourSCode,fiveSCode):
+def doReport(reqLoc,doDir,sHotValue):
   global sCodeLiMark
   jsonInit = open(reqLoc,'r')
   jsonData = json.loads(jsonInit.read())
@@ -110,18 +110,7 @@ def doReport(reqLoc,doDir,sHotValue,twoSCode,threeSCode,fourSCode,fiveSCode):
       statusCode = d["sCode"]
       if statusCode == i:
         if sHotValue == "y":
-          if statusCode == "200":
-            if twoSCode == "y":
-              uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a><br><a target="_blank" href="{d["url"]}.png"><img src="{d["url"]}.png"></a>'
-          elif statusCode == "300":
-            if threeSCode == "y":
-              uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a><br><a target="_blank" href="{d["url"]}.png"><img src="{d["url"]}.png"></a>'
-          elif statusCode == "400":
-            if fourSCode == "y":
-              uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a><br><a target="_blank" href="{d["url"]}.png"><img src="{d["url"]}.png"></a>'
-          elif statusCode == "500":
-            if fiveSCode == "y":
-              uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a><br><a target="_blank" href="{d["url"]}.png"><img src="{d["url"]}.png"></a>'
+          uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a><br><a target="_blank" href="{d["url"]}.png"><img src="{d["url"]}.png"></a>'
         else:
           uSCodes += f'<br><a href="https://{d["url"]}" class="text-muted">{d["url"]} - {d["header"]}</a>'
     sCodeTemplate = f"""

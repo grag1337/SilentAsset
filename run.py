@@ -3,7 +3,11 @@
 # You're gonna get jumped with the 100mb chromium install.
 from lib.screenshot import initScreenshot
 from os import system, name
-
+"""
+Run w/ screenshots 
+Run w/o screenshots
+check both reports to make sure it's not fucked.
+"""
 from lxml.html import InputElement
 from lib.firstStart import * 
 from lib.runScan import *
@@ -79,10 +83,10 @@ try:
             else:
                 initializeReq(runScan.domain,runScan.tOut)
                 if runScan.sSubDom == "y":
-                    initScreenshot(getResponse.reqFile,runScan.twoSCode,runScan.threeSCode,runScan.fourSCode,runScan.fiveSCode,runScan.domain,getResponse.homeDir)
+                    initScreenshot(getResponse.reqFile,runScan.domain,getResponse.homeDir)
                 else:
                     None
-                beforeReport(getResponse.reqDir,getResponse.homeDir,runScan.domain,getResponse.doDir,getResponse.reqFile,runScan.sSubDom,runScan.twoSCode,runScan.threeSCode,runScan.fourSCode,runScan.fiveSCode)
+                beforeReport(getResponse.reqDir,getResponse.homeDir,runScan.domain,getResponse.doDir,getResponse.reqFile,runScan.sSubDom)
                 clear()
                 inputloop(f"✓ {getStarted}")
         elif getStarted == "about" or getStarted == "About":
