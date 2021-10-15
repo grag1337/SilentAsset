@@ -91,6 +91,12 @@ chmod +x run.py
 
 Type ```help``` in the main menu to get a list of commands.
 
+## Latest Updates
+
+As of 15/10/2021 I can confidently say that this tool can do a basic subdomain audit. The screenshot function is working as intended, even if the HTML report looks like it's still in its infancy.
+
+More features to come! Help with the HTML report side is appreciated, feature requests are also greatly appreciated! 
+
 ## Roadmap
 
 See the [open issues](https://github.com/Grag1337/SilentAsset/issues) for a list of proposed features (and known issues).

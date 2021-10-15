@@ -3,11 +3,6 @@
 # You're gonna get jumped with the 100mb chromium install.
 from lib.screenshot import initScreenshot
 from os import system, name
-"""
-Run w/ screenshots 
-Run w/o screenshots
-check both reports to make sure it's not fucked.
-"""
 from lxml.html import InputElement
 from lib.firstStart import * 
 from lib.runScan import *
