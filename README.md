@@ -23,6 +23,9 @@
 
 This project is in its early days, everything you see here is almost a POC. I will constantly be changing this project and adding / removing features. As said below, suggestions are greatly appreciated and assist me in prioritising feature addition. 
 
+PS: Don't run this as root, unless you are prepared to debug for hours. I have no idea why it fails when running as root.
+PSPS: Make sure you have chromium and chromium-webdriver installed before lodging issues, just incase that's the problem.
+
 ## About The Project
 
 After trying to make-do with a handful of asset discovery tools, I decided that it was time to just create something that does what I want, how I want it. This is an ongoing project and features are prone to change / deletion. I'm taking any/all suggestions and code additions that assist in creating a tool that can compete with it's predecessors. 
@@ -36,8 +39,6 @@ Python3
 ## Getting Started
 
 Disclaimer: Afaik, one of the libraries I use downloads a 100mb chromium package during use somewhere. It only does it once, but just ensure that you have the space for that prior to running this.
-
-If you clone this repository with sudo, ensure that you run the program as sudo also, it will break the file read/write functions otherwise.
 
 This is how you currently install and run this program:
 
