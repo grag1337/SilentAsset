@@ -23,8 +23,8 @@
 
 This project is in its early days, everything you see here is almost a POC. I will constantly be changing this project and adding / removing features. As said below, suggestions are greatly appreciated and assist me in prioritising feature addition. 
 
-PS: Don't run this as root, unless you are prepared to debug for hours. I have no idea why it fails when running as root.
-PSPS: Make sure you have chromium and chromium-webdriver installed before lodging issues, just incase that's the problem.
+<b>PS</b>: Don't run this as root, unless you are prepared to debug for hours. I have no idea why it fails when running as root.<br>
+<b>PSPS</b>: Make sure you have chromium and chromium-webdriver installed before lodging issues, just incase that's the problem.
 
 ## About The Project
 
