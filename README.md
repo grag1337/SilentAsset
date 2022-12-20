@@ -18,7 +18,8 @@
 <img src="https://img.shields.io/github/issues/grag1337/SilentAsset?style=for-the-badge"></img>
 <img src="https://img.shields.io/github/license/grag1337/SilentAsset?style=for-the-badge"></img>
 </p>
-## Heads up | Unbelieveably broken after not being maintained for a year
+<h1>Unbelieveably broken after not being maintained for a year</h1>
+<h1>Probably doesn't work anymore, moving on to other things</h1>
 
 ## DISCLAIMER ##
 
